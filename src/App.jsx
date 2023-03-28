@@ -2,8 +2,12 @@ import { useState } from "react"
 import { Header } from "./components/Header"
 import { List } from "./components/List"
 import { Box } from '@chakra-ui/react'
+import "./app.css"
 
 //El filter no esta funcionando correctamente, no logro que el array se resetee correctamente y no entiendo porque. queda pendiente
+
+//el boton del check no me deja deschekearlo, no se como hacerlo, pedir help
+
 function App() {
 
   const [list, setList] = useState(localStorage.getItem("list") && JSON.parse(localStorage.getItem("list")) || [])
@@ -20,18 +24,19 @@ function App() {
   }
 
 
-  const itemListCheck = (id, name) => {
-    return {
-      id: id,
-      name: name,
-      state: true,
-    }
-  }
+  // const itemListCheck = (id, name, state) => {
+  //   return {
+  //     id,
+  //     name,
+  //     state,
+  //   }
+  // }
 
-  const handleItemList = (id, name, state) => {
+  const handleItemList = (id) => {
     const newArray = list.map(obj => {
       if (obj.id === id) {
-        return itemListCheck(id, name)
+        obj.state = !obj.state
+        // return itemListCheck(id, name, !state)
       }
       return obj;
     })
@@ -47,32 +52,27 @@ function App() {
     localStorage.setItem("list", JSON.stringify(listFilter))
   }
 
-  const resetList = () => {
-    const resetList = localStorage.getItem("list") && JSON.parse(localStorage.getItem("list"))
-    setList(resetList)
-  }
-
   const handleFilters = (value) => {
-    resetList()
+    let arrFilter = JSON.parse(localStorage.getItem("list"))
+    if (value === "all") {
+      setList(arrFilter)
+    }
     if (value === "complete") {
-      resetList()
-      const filterList = list.filter(obj => obj.state === true)
-      console.log(filterList)
+      const filterList = arrFilter.filter(obj => obj.state === true)
       setList(filterList)
 
     }
     if (value === "incomplete") {
-      resetList()
-      const filterList = list.filter(obj => obj.state === false)
-      console.log(filterList)
+      const filterList = arrFilter.filter(obj => obj.state === false)
       setList(filterList)
     }
   }
 
   return (
     <>
-      <Box backgroundImage="url(`./assets/background.jpeg`)">
-        <Header handleList={handleList} handleFilters={handleFilters} resetList={resetList} />
+      <Box backgroundImage="url('/background.jpeg')" backgroundPosition="center"
+        backgroundRepeat="no-repeat" h="100%" m="0" bgSize="cover" minHeight="100vh">
+        <Header handleList={handleList} handleFilters={handleFilters} />
         {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} />)}
       </Box>
     </>
