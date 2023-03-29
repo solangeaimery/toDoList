@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'dreamland';
+    src: url('./public/fonts/Dreamland.otf') format('truetype');
+}
+
+h2 {
+    font-family: 'dreamland', sans-serif;
+}

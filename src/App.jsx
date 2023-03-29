@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Header } from "./components/Header"
 import { List } from "./components/List"
 import { Box } from '@chakra-ui/react'
-import "./app.css"
+
 
 //El filter no esta funcionando correctamente, no logro que el array se resetee correctamente y no entiendo porque. queda pendiente
 
@@ -11,8 +11,13 @@ import "./app.css"
 function App() {
 
   const [list, setList] = useState(localStorage.getItem("list") && JSON.parse(localStorage.getItem("list")) || [])
+  const [alert, setAlert] = useState(false)
 
   const handleList = (value) => {
+    setAlert(false)
+    if (value === "") {
+      return setAlert(true)
+    }
     const itemList = [...list, {
       id: self.crypto.randomUUID(),
       name: value,
@@ -22,7 +27,6 @@ function App() {
     setList(itemList)
     localStorage.setItem("list", JSON.stringify(itemList))
   }
-
 
   // const itemListCheck = (id, name, state) => {
   //   return {
@@ -72,7 +76,7 @@ function App() {
     <>
       <Box backgroundImage="url('/background.jpeg')" backgroundPosition="center"
         backgroundRepeat="no-repeat" h="100%" m="0" bgSize="cover" minHeight="100vh">
-        <Header handleList={handleList} handleFilters={handleFilters} />
+        <Header handleList={handleList} handleFilters={handleFilters} alert={alert}/>
         {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} />)}
       </Box>
     </>
