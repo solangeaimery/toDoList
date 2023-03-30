@@ -1,23 +1,48 @@
-import { Box, Container, IconButton, Button, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverCloseButton, PopoverArrow, PopoverBody, PopoverFooter, useDisclosure, Portal } from '@chakra-ui/react'
+import { Box, Container, IconButton, Button, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverCloseButton, PopoverArrow, PopoverBody, useDisclosure, Portal, Input, Flex } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon, CheckIcon } from '@chakra-ui/icons'
+import { useState } from 'react'
 
-export const List = ({ item, handleItemList, handleDeletTask }) => {
+export const List = ({ item, handleItemList, handleDeletTask, handleEdit }) => {
 
-    const { isOpen, onToggle, onClose } = useDisclosure()
+    const {
+        isOpen: isOpenEditPopover,
+        onOpen: onOpenEditPopover,
+        onClose: onCloseEditPopover
+    } = useDisclosure();
+    const [edit, setEdit] = useState(item.name)
 
+    const handlePopover = () => {
+        handleEdit(item.id, edit)
+    }
 
     return (
         <Box display="flex" alignItems="center" justifyContent="center" gap="50px">
-            <Box bg='white' p="10px" w="fit-content" minW="20rem" display="flex" flexDir="row" borderRadius="7px" m="5px" 
-            justifyContent="spaceBetween" borderWidth='2px' borderColor='#B8B5A4'>
+            <Box bg='white' p="10px" w="fit-content" minW="20rem" display="flex" flexDir="row" borderRadius="7px" m="5px"
+                justifyContent="spaceBetween" borderWidth='2px' borderColor='#B8B5A4'>
                 <Container textDecoration={item.state && 'line-through'} >{item.name}</Container>
                 <Box display="flex" flexDir="row" gap="10px">
                     <IconButton aria-label='Search database' colorScheme={item.state ? "blackAlpha" : "teal"} icon={<CheckIcon />} onClick={() => handleItemList(item.id)} />
-                    <IconButton aria-label='Search database' colorScheme="teal" icon={<EditIcon />} />
+                    <Popover isOpen={isOpenEditPopover} onClose={onCloseEditPopover}>
+                        <PopoverTrigger>
+                            <IconButton aria-label='Search database' colorScheme="teal" icon={<EditIcon />} onClick={onOpenEditPopover}/>
+                        </PopoverTrigger>
+                        <PopoverContent >
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Edit Task</PopoverHeader>
+                            <Input borderColor='#B8B5A4' maxLength='25' w="fitContent" m="20px" value={edit} onChange={(e) => setEdit(e.target.value)} />
+                            <Flex justifyContent="end">
+                                <Button boxShadow='md' _hover={{ backgroundColor: '#6E6D5A' }} backgroundColor="#3D423A" border='2px'
+                                    borderColor='#B8B5A4' color="white" w="30%" m="10px" onClick={() => { handlePopover()
+                                        onCloseEditPopover() }} > Save</Button>
+                            </Flex>
+                        </PopoverContent>
+                    </Popover>
+
                     <Popover>
                         <PopoverTrigger>
-                            <IconButton aria-label='Search database' backgroundColor="#3D413C" color="white" 
-                            _hover={{ backgroundColor: '#6E6D5A' }}  icon={<DeleteIcon />} onClick={() => isOpen}
+                            <IconButton aria-label='Search database' backgroundColor="#3D413C" color="white"
+                                _hover={{ backgroundColor: '#6E6D5A' }} icon={<DeleteIcon />}
                             />
                         </PopoverTrigger>
                         <Portal>
@@ -27,15 +52,14 @@ export const List = ({ item, handleItemList, handleDeletTask }) => {
                                 <PopoverHeader color="red">Esta seguro de que quiere eliminar esta task?</PopoverHeader>
                                 <PopoverCloseButton />
                                 <PopoverBody>
-                                    <Button boxShadow='md'_hover={{ backgroundColor: '#6E6D5A' }} backgroundColor="#3D423A" border='2px'
-                    borderColor='#B8B5A4' color="white" onClick={() => handleDeletTask(item.id)}>Confirm</Button>
+                                    <Button boxShadow='md' _hover={{ backgroundColor: '#6E6D5A' }} backgroundColor="#3D423A" border='2px'
+                                        borderColor='#B8B5A4' color="white" onClick={() => handleDeletTask(item.id)}>Confirm</Button>
                                 </PopoverBody>
                             </PopoverContent>
                         </Portal>
                     </Popover>
                 </Box>
             </Box>
-
         </Box>
     )
 }

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'dreamland';
+    src: url('../assets/fonts/Dreamland.otf');
+}
+
+h2 {
+    font-family: 'dreamland' !important;
+}

@@ -3,11 +3,6 @@ import { Header } from "./components/Header"
 import { List } from "./components/List"
 import { Box } from '@chakra-ui/react'
 
-
-//El filter no esta funcionando correctamente, no logro que el array se resetee correctamente y no entiendo porque. queda pendiente
-
-//el boton del check no me deja deschekearlo, no se como hacerlo, pedir help
-
 function App() {
 
   const [list, setList] = useState(localStorage.getItem("list") && JSON.parse(localStorage.getItem("list")) || [])
@@ -28,19 +23,22 @@ function App() {
     localStorage.setItem("list", JSON.stringify(itemList))
   }
 
-  // const itemListCheck = (id, name, state) => {
-  //   return {
-  //     id,
-  //     name,
-  //     state,
-  //   }
-  // }
 
   const handleItemList = (id) => {
     const newArray = list.map(obj => {
       if (obj.id === id) {
         obj.state = !obj.state
-        // return itemListCheck(id, name, !state)
+      }
+      return obj;
+    })
+    setList(newArray)
+    localStorage.setItem("list", JSON.stringify(newArray))
+  }
+
+  const handleEdit = (id, value) => {
+    const newArray = list.map(obj => {
+      if (obj.id === id) {
+        obj.name = value
       }
       return obj;
     })
@@ -77,7 +75,7 @@ function App() {
       <Box backgroundImage="url('/background.jpeg')" backgroundPosition="center"
         backgroundRepeat="no-repeat" h="100%" m="0" bgSize="cover" minHeight="100vh">
         <Header handleList={handleList} handleFilters={handleFilters} alert={alert}/>
-        {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} />)}
+        {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />)}
       </Box>
     </>
   )
