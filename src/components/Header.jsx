@@ -24,11 +24,11 @@ export const Header = ({ handleList, handleFilters, alert }) => {
 
     return (
         <header>
-            <Heading as='h2' size='3xl' noOfLines={1} p="50px" textAlign="center" >To do List</Heading>
-            <Box display="flex" alignItems="center" justifyContent="center" gap="50px">
-                <Input maxLength='25' boxShadow='lg' w="25rem" m="20px" placeholder='Enter task' border='2px'
+            <Heading as='h1' size='4xl' noOfLines={1} p="50px" textAlign="center" >To do List</Heading>
+            <Box display="flex" alignItems="center" justifyContent="center" gap={{ base: '15px', md: '50px'}} flexDirection={{ base: 'column', md: 'row'}}> 
+                <Input maxLength='25' boxShadow='lg' w={{ base: '20rem', md: "25rem"}} m="20px" placeholder='Enter task' border='2px'
                     borderColor='#B8B5A4' backgroundColor="white" value={itemList} onChange={(e) => handleItemList(e)} />
-                <Select boxShadow='lg' w="25rem" m="20px" placeholder='Select option' border='2px'
+                <Select boxShadow='lg' w={{ base: '20rem', md: "25rem"}} m="20px" placeholder='Select option' border='2px'
                     borderColor='#B8B5A4' backgroundColor="white" value={selectValue} onChange={(e) => handleChange(e)}>
                     <option value='all'>All</option>
                     <option value='complete'>Complete</option>
@@ -38,7 +38,7 @@ export const Header = ({ handleList, handleFilters, alert }) => {
             {alert && <Flex justifyContent="center">
                 <Alert status='error' w="25rem" ml="20px">
                     <AlertIcon />
-                    Oooops, plese enter a Task!
+                    Oooops, please enter a Task!
                 </Alert>
             </Flex>}
             <Box display="flex" alignItems="center" justifyContent="center">

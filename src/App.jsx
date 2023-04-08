@@ -3,6 +3,7 @@ import { Header } from "./components/Header"
 import { List } from "./components/List"
 import { Box } from '@chakra-ui/react'
 
+
 function App() {
 
   const [list, setList] = useState(localStorage.getItem("list") && JSON.parse(localStorage.getItem("list")) || [])
@@ -72,9 +73,12 @@ function App() {
 
   return (
     <>
-      <Box backgroundImage="url('/background.jpeg')" backgroundPosition="center"
-        backgroundRepeat="no-repeat" h="100%" m="0" bgSize="cover" minHeight="100vh">
-        <Header handleList={handleList} handleFilters={handleFilters} alert={alert}/>
+      <Box backgroundImage={{ base: "url('/backgroundMobile.jpeg')", md: "url('/background.jpeg')" }}
+        bgSize="cover"
+        bgPosition="center"
+        height="100vh"
+        width="100vw">
+        <Header handleList={handleList} handleFilters={handleFilters} alert={alert} />
         {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />)}
       </Box>
     </>

@@ -26,11 +26,12 @@ export const List = ({ item, handleItemList, handleDeletTask, handleEdit }) => {
                         <PopoverTrigger>
                             <IconButton aria-label='Search database' colorScheme="teal" icon={<EditIcon />} onClick={onOpenEditPopover}/>
                         </PopoverTrigger>
-                        <PopoverContent >
+                        <PopoverContent backgroundImage="url('./hollinesTrabajando.png')" backgroundPosition="left 0 bottom 5px"
+                                bgSize="40%" backgroundRepeat="no-repeat">
                             <PopoverArrow />
                             <PopoverCloseButton />
                             <PopoverHeader>Edit Task</PopoverHeader>
-                            <Input borderColor='#B8B5A4' maxLength='25' w="fitContent" m="20px" value={edit} onChange={(e) => setEdit(e.target.value)} />
+                            <Input borderColor='#B8B5A4' maxLength='25' w="fitContent" m="20px" value={edit} onChange={(e) => setEdit(e.target.value)} bg="white" />
                             <Flex justifyContent="end">
                                 <Button boxShadow='md' _hover={{ backgroundColor: '#6E6D5A' }} backgroundColor="#3D423A" border='2px'
                                     borderColor='#B8B5A4' color="white" w="30%" m="10px" onClick={() => { handlePopover()
@@ -49,7 +50,7 @@ export const List = ({ item, handleItemList, handleDeletTask, handleEdit }) => {
                             <PopoverContent p="20px" backgroundImage="url('./hollines.png')" backgroundPosition="right 0 bottom -15px"
                                 bgSize="60%" backgroundRepeat="no-repeat" >
                                 <PopoverArrow />
-                                <PopoverHeader color="red">Esta seguro de que quiere eliminar esta task?</PopoverHeader>
+                                <PopoverHeader color="red">Are you sure you want to delete this task?</PopoverHeader>
                                 <PopoverCloseButton />
                                 <PopoverBody>
                                     <Button boxShadow='md' _hover={{ backgroundColor: '#6E6D5A' }} backgroundColor="#3D423A" border='2px'
