@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Header } from "./components/Header"
 import { List } from "./components/List"
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
 
 function App() {
@@ -79,7 +79,14 @@ function App() {
         height="100vh"
         width="100vw">
         <Header handleList={handleList} handleFilters={handleFilters} alert={alert} />
-        {list.length !== 0 && list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />)}
+        {list.length !== 0 ? list.map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />) :
+          <Flex justifyContent="center">
+            <Flex backgroundColor="white" flexDirection="column" alignItems="center" justifyContent="center" 
+            textAlign="center" p="20px" m="20px" boxShadow='md' borderColor='#B8B5A4' border="1px" borderRadius="5px">
+              <Image src='/cositos.jpeg' alt='kodama' w="15vw"/>
+              <Text fontSize="12px" >You have no task! <br /> try adding one or changing the filters...</Text>
+            </Flex>
+          </Flex>}
       </Box>
     </>
   )
