@@ -27,7 +27,7 @@ export const Header = ({ handleList, handleFilters, alert, setList, setSelectVal
             <Box display="flex" alignItems="center" justifyContent="center" gap={{ base: '15px', md: '50px'}} flexDirection={{ base: 'column', md: 'row'}}> 
                 <Input maxLength='25' boxShadow='lg' w={{ base: '20rem', md: "25rem"}} m="20px" placeholder='Enter task' border='2px'
                     borderColor='#B8B5A4' backgroundColor="white" value={itemList} onChange={(e) => handleItemList(e)} />
-                <Select boxShadow='lg' w={{ base: '20rem', md: "25rem"}} m="20px" placeholder='Select option' border='2px'
+                <Select boxShadow='lg' w={{ base: '20rem', md: "25rem"}} m="20px" border='2px'
                     borderColor='#B8B5A4' backgroundColor="white" value={selectValue} onChange={(e) => handleChange(e)}>
                     <option value='all'>All</option>
                     <option value='complete'>Complete</option>
