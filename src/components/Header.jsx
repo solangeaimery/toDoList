@@ -2,10 +2,9 @@ import { Heading, Input, Select, Box, Button, Alert, AlertIcon, Flex } from '@ch
 import { useState } from 'react'
 import "./styles.css"
 
-export const Header = ({ handleList, handleFilters, alert }) => {
+export const Header = ({ handleList, handleFilters, alert, setList, setSelectValue, selectValue}) => {
 
     const [itemList, setItemList] = useState("")
-    const [selectValue, setSelectValue] = useState("")
 
     const handleItemList = (e) => {
         setItemList(e.target.value)
@@ -19,7 +18,7 @@ export const Header = ({ handleList, handleFilters, alert }) => {
     const handleChange = (e) => {
         const value = e.target.value
         setSelectValue(value)
-        handleFilters(value)
+        setList(handleFilters(value))
     }
 
     return (
