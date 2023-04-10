@@ -60,13 +60,13 @@ function App() {
 
   const handleFilters = (value, array = JSON.parse(localStorage.getItem("list"))) => {
     let arrFilter = array
-    if (value === "all" && arrFilter) {
+    if (value === "all") {
       return arrFilter
     }
-    if (value === "complete" && arrFilter) {
+    if (value === "complete" ) {
       return arrFilter.filter(obj => obj.state === true)
     }
-    if (value === "incomplete" && arrFilter) {
+    if (value === "incomplete" ) {
       return  arrFilter.filter(obj => obj.state === false)
     }
   }
@@ -80,7 +80,8 @@ function App() {
           minHeight="100vh"
           minWidth="100vw">
         <Header handleList={handleList} handleFilters={handleFilters} alert={alert} setList={setList} selectValue={selectValue} setSelectValue={setSelectValue}/>
-        {list.length !== 0 ? handleFilters(selectValue, list).map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />) :
+        {list.length !== 0 ? handleFilters(selectValue, list).map(item =>
+          <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />) :
           <Flex justifyContent="center">
             <Flex backgroundColor="white" flexDirection="column" alignItems="center" justifyContent="center"
               textAlign="center" p="20px" m="10px" boxShadow='md' borderColor='#B8B5A4' border="1px" borderRadius="5px">
