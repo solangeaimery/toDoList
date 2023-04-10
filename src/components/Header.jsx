@@ -2,7 +2,7 @@ import { Heading, Input, Select, Box, Button, Alert, AlertIcon, Flex } from '@ch
 import { useState } from 'react'
 import "./styles.css"
 
-export const Header = ({ handleList, handleFilters, alert, setList, setSelectValue, selectValue}) => {
+export const Header = ({ handleList, handleFilters, alert, setList, list, setSelectValue, selectValue}) => {
 
     const [itemList, setItemList] = useState("")
 

@@ -59,16 +59,18 @@ function App() {
   }
 
   const handleFilters = (value, array = JSON.parse(localStorage.getItem("list"))) => {
-    let arrFilter = array
-    if (value === "all") {
-      return arrFilter
-    }
-    if (value === "complete" ) {
-      return arrFilter.filter(obj => obj.state === true)
-    }
-    if (value === "incomplete" ) {
-      return  arrFilter.filter(obj => obj.state === false)
-    }
+    if(JSON.parse(localStorage.getItem("list"))){
+      let arrFilter = array
+        if (value === "all" && arrFilter) {
+          return arrFilter
+        }
+        if (value === "complete" && arrFilter ) {
+          return arrFilter.filter(obj => obj.state === true)
+        }
+        if (value === "incomplete" && arrFilter) {
+          return  arrFilter.filter(obj => obj.state === false)
+        }
+    } else return localStorage.setItem("list", JSON.stringify([]))
   }
 
   return (
@@ -79,7 +81,7 @@ function App() {
           backgroundRepeat="no-repeat"
           minHeight="100vh"
           minWidth="100vw">
-        <Header handleList={handleList} handleFilters={handleFilters} alert={alert} setList={setList} selectValue={selectValue} setSelectValue={setSelectValue}/>
+        <Header handleList={handleList} handleFilters={handleFilters} alert={alert} list={list} setList={setList} selectValue={selectValue} setSelectValue={setSelectValue}/>
         {list.length !== 0 ? handleFilters(selectValue, list).map(item =>
           <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />) :
           <Flex justifyContent="center">
