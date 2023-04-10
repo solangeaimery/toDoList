@@ -4,6 +4,7 @@ import { List } from "./components/List"
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
 
+
 function App() {
 
   const [list, setList] = useState(JSON.parse(localStorage.getItem("list")) || [])
@@ -72,11 +73,12 @@ function App() {
 
   return (
     <>
-      <Box backgroundImage={{ base: "url('/backgroundMobile.jpeg')", md: "url('/background.jpeg')" }}
-        bgSize="cover"
-        bgPosition="center"
-        height="100vh"
-        width="100vw">
+      <Box backgroundImage={{ base: "url('/backgroundMobile.jpeg')", md: "url('/background2.jpeg')" }}
+          backgroundSize="cover"
+          backgroundPosition="center"
+          backgroundRepeat="no-repeat"
+          minHeight="100vh"
+          minWidth="100vw">
         <Header handleList={handleList} handleFilters={handleFilters} alert={alert} setList={setList} selectValue={selectValue} setSelectValue={setSelectValue}/>
         {list.length !== 0 ? handleFilters(selectValue, list).map(item => <List key={item.id} item={item} handleItemList={handleItemList} handleDeletTask={handleDeletTask} handleEdit={handleEdit} />) :
           <Flex justifyContent="center">
@@ -90,5 +92,5 @@ function App() {
     </>
   )
 }
-"15vw"
+
 export default App
